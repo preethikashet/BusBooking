@@ -18,6 +18,10 @@ public class BusController {
     @Autowired
     private BusService busService;
 
+    @GetMapping("/test")
+    public String bustest(){
+        return "Inside test";
+    }
     @GetMapping("/get")
     public ResponseEntity<List<Bus>> getBus() {
         return ResponseEntity.ok(busService.getBus());

@@ -7,30 +7,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/kpis")
+@RequestMapping("/api/auth/t")
 
 public class ApiController {
     @Autowired
-    public EurekaOne eurekaOne;
-    @Autowired
-    public EurekaTwo eurekaTwo;
+    public Vendorservice vendorservice;
+//    @Autowired
+//    public EurekaOne eurekaOne;
+//    @Autowired
+//    public EurekaTwo eurekaTwo;
 
-    @GetMapping("/testeurekaclient")
-    public String testeurekaclient() {
-        return eurekaOne.testeurekaclient();
+//    @GetMapping("/testeurekaclient")
+//    public String testeurekaclient() {
+//        return eurekaOne.testeurekaclient();
+//    }
+
+//    @GetMapping("/testeurekaclienttwo")
+//    public String testeurekaclientTwo() {
+//        return eurekaTwo.testeurekaclient();
+//    }
+    @GetMapping("/test")
+    public String test(){
+        return vendorservice.test();
     }
 
-    @GetMapping("/testeurekaclienttwo")
-    public String testeurekaclientTwo() {
-        return eurekaTwo.testeurekaclient();
-    }
-
+//
 }
 
-@FeignClient(name = "http://EurekaClientOne/c1")
-interface EurekaOne{
-    @GetMapping("/testeurekaclient")
-    public String testeurekaclient() ;
+@FeignClient(name = "http://vendorservice/api/bus")
+interface Vendorservice{
+    @GetMapping("/test")
+    public String test() ;
 }
 
 @FeignClient(name = "http://EurekaClientTwo/c2")
