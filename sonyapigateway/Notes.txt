@@ -1,0 +1,10 @@
+1. Open Microservice one and note down microservice name and the request mapping url
+2. Note Down the endpoints to be called from the API Gateway with the exact signature
+3.GO to the JWT token microservice inside the authenticated request mapping of a controller(Create a controller with this request mapping)
+4.Create Interface for the microservice one with the annotation @FeignClient(Give the microservice name and the requestmapping)
+5. Add Abstract methods that we have noted down for the microservice one
+6.Enable FeignClient in the main
+7.In the Controller which is authenticated inside the JWT token, add autowired for interface
+8.Create any endpoint which matches the microservice endpoint and call the microservice using the autowired object
+9. Start the discovery server first, then start the API gateway and other microservice
+10. Test the application
