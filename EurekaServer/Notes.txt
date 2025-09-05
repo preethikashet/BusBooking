@@ -1,0 +1,8 @@
+Observer Design Pattern
+Eureka Netflix Architecture
+
+Configuration
+spring.application.name= eureka  //Important
+server.port = 8761
+eureka.client.registerWithEureka = false //false=> Eureka Server true=> Eureka Client
+eureka.client.fetchRegistry = false
