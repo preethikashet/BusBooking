@@ -25,4 +25,5 @@ public class Schedule {
     public Integer driverid;
     public LocalDateTime arrivaltime;
     public LocalDateTime departuretime;
+
 }
