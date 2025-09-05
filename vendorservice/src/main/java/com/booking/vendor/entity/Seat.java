@@ -9,18 +9,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table(name = "vendortable")
-@Data
+@Table(name = "seattable")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vendor {
+@Data
+public class Seat {
     @Id
-    public Integer vendorid;
+    public Integer seatid;
     @Column
-    public String vendorname;
-    @Column
-    public String phoneno;
-
+    public String seatnumber;
+    public Integer busid;
 }

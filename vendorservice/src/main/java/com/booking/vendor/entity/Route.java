@@ -9,18 +9,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table(name = "vendortable")
-@Data
+@Table(name = "routetable")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vendor {
+@Data
+public class Route {
     @Id
+    public Integer routeid;
+    @Column
+    public String src;
+    @Column
+    public String dest;
+    @Column
+    public Integer distance;
     public Integer vendorid;
-    @Column
-    public String vendorname;
-    @Column
-    public String phoneno;
 
 }
