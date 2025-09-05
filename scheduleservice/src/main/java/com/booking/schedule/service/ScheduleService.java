@@ -32,10 +32,12 @@ public class ScheduleService {
         return schedulerepository.findAll();
     }
 
-    public List<ScheduleDetails> getScheduleDetails()
-    {
+//    public List<ScheduleDetails> getScheduleDetails()
+//    {
+//
+//    }
 
-    }
+
 
 
 
