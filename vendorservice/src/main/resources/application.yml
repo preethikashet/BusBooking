@@ -1,14 +1,18 @@
 server:
-  port: 8081
+  port: 8084
 
 spring:
   application:
     name: vendor-service
   datasource:
-    url: jdbc:mysql://localhost:3306/vendorservice
+    url: jdbc:mysql://localhost:3306/busbooking
     username: root
-    password: mysql
+    password: pass@word1
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 
 

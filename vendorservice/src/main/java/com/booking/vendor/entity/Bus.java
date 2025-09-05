@@ -21,4 +21,5 @@ public class Bus {
     @Column
     public String busnumber;
     public Integer totalseats;
+    public Integer vendorid;
 }

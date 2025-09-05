@@ -9,18 +9,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table(name = "vendortable")
-@Data
+@Table(name = "drivertable")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vendor {
+@Data
+public class Driver {
     @Id
-    public Integer vendorid;
+    public Integer driverid;
     @Column
-    public String vendorname;
+    public String drivername;
     @Column
     public String phoneno;
-
+    @Column
+    public Integer vendorid;
 }

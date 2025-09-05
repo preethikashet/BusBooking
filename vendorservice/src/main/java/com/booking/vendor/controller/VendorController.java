@@ -16,7 +16,7 @@ public class VendorController {
     @Autowired
     private VendorService vendorService;
 
-    @GetMapping("/data")
+    @GetMapping("/get")
     public ResponseEntity<List<Vendor>> getVendor() {
         return ResponseEntity.ok(vendorService.getVendor());
     }
