@@ -1,6 +1,6 @@
 package com.booking.repository;
 
-import com.booking.dto.BookingDTO;
+
 import com.booking.entity.BookingEntity;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<BookingEntity,Integer> {
-     List<BookingEntity> findAll();
+
 }

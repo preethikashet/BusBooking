@@ -56,7 +56,10 @@ public class BusService {
         return busResponse;
 
     }
-
+    public Boolean getBusById(Integer busid)
+    {
+        return busDAO.existsById(busid);
+    }
 //    public Optional<Bus> getBusById(Integer busid)
 //    {
 //        return busDAO.findById(busid);
