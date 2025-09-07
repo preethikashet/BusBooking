@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 @RestController("/api/user")
 public class UserController {
+    /**
+     *
+     * @param userEntity
+     * @return
+     */
     @PostMapping("/register")
     public  String addbooking(@RequestBody UserEntity userEntity){
 //        return bookingService.addbooking(bookingEntity);

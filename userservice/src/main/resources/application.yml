@@ -1,9 +1,7 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
-  application:
-    name: busbooking
   datasource:
     url: jdbc:mysql://localhost:3306/busbooking
     username: root
