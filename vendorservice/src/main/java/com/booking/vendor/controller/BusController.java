@@ -34,5 +34,11 @@ public class BusController {
 
     }
 
+    @GetMapping("/getbyid/{id}")
+    public Boolean getBusById(@PathVariable Integer id)
+    {
+        return busService.getBusById(id);
+    }
+
 
 }

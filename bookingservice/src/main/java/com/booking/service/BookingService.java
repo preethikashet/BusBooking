@@ -1,6 +1,6 @@
 package com.booking.service;
 
-import com.booking.dto.BookingDTO;
+
 import com.booking.entity.BookingEntity;
 import com.booking.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +21,6 @@ public class BookingService {
     public List<BookingEntity> getAllBookings(){
         return bookingRepository.findAll();
     }
+
+
 }

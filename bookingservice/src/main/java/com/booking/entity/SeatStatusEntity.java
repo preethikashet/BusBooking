@@ -1,11 +1,9 @@
 package com.booking.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -13,11 +11,16 @@ import java.util.Date;
 @Table(name="seatstatustable")
 public class SeatStatusEntity {
     @Id
-    private int seatstatusid;
+    private int seatstatusId;
     @Column
     private Date date;
-    private int busid;
-    private int totalseats;
-    private int occupiedseats;
+    private Integer busId;
+    private Integer totalseats;
+    private Integer occupiedseats;
+
+    @Transient
+    public Integer getRemainingSeats(){
+        return totalseats-occupiedseats ;
+    }
 
 }
