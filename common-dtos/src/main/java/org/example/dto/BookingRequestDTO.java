@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class BookingRequestDTO {
-    public Date scheduledate;
+    public LocalDate scheduledate;
     public List<Integer> busids;
 }
