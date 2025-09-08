@@ -1,7 +1,7 @@
 package com.booking.schedule.service;
 
 import com.booking.schedule.client.BusClient;
-import com.booking.schedule.client.VendorClient;
+//import com.booking.schedule.client.VendorClient;
 import com.booking.schedule.entity.Schedule;
 //import com.booking.schedule.client.BusClient;
 //import com.booking.schedule.client.RouteClient;
@@ -18,8 +18,8 @@ public class ScheduleService {
     public Schedulerepository schedulerepository;
     @Autowired
     public BusClient busClient;
-    @Autowired
-    public VendorClient vendorClient;
+//    @Autowired
+//    public VendorClient vendorClient;
 //    public RouteClient routeClient;
 
 

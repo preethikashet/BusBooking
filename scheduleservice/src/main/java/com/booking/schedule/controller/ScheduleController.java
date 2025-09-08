@@ -2,6 +2,7 @@ package com.booking.schedule.controller;
 
 import com.booking.schedule.entity.Schedule;
 import com.booking.schedule.service.ScheduleService;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,11 @@ public class ScheduleController {
     @Autowired
     public ScheduleService scheduleService;
 
+    /**
+     *
+     * @param schedule
+     * @return
+     */
     @PostMapping("/addschedule")
     public String addS(@RequestBody Schedule schedule){
         return scheduleService.addSchedule(schedule);
@@ -23,6 +29,15 @@ public class ScheduleController {
     public ResponseEntity<List<Schedule>> getSchedules()
     {
         return ResponseEntity.ok(scheduleService.getSchedules());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/test")
+    public String test() {
+        return "Test/test";
     }
 
 
