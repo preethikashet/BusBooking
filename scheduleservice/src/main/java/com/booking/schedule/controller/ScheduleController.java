@@ -2,16 +2,21 @@ package com.booking.schedule.controller;
 
 import com.booking.schedule.entity.Schedule;
 import com.booking.schedule.service.ScheduleService;
+import feign.Param;
+import org.example.dto.RouteRequestDTO;
+import org.example.dto.UserResponseDTO;
 import org.hibernate.annotations.GenericGenerator;
 
 import org.example.dto.BookingResponseDTO;
 import org.example.dto.BusResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -56,6 +61,13 @@ public class ScheduleController {
     public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats()
    {
        return ResponseEntity.ok(scheduleService.getRemainingSeats());
+   }
+
+   @GetMapping("/search")
+    public ResponseEntity<UserResponseDTO> searchBus(@RequestParam String src, String dst, Date bookingdate)
+   {
+
+
    }
 
 
