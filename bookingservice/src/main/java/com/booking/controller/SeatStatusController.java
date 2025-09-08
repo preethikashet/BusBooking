@@ -21,6 +21,11 @@ public class SeatStatusController {
     @Autowired
     private SeatStatusService seatStatusService ;
 
+    /**
+     *
+     * @param seatStatusEntity
+     * @return
+     */
     @PostMapping("/add")
     public String addseatstatus(@RequestBody SeatStatusEntity seatStatusEntity){
         return seatStatusService.addseats(seatStatusEntity);

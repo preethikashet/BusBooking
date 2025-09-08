@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name="vendorservice",url="localhost:8084/api/bus")
+@FeignClient(name="vendorservice",path="/api/bus")
 public interface BusClient {
     @GetMapping("/getbyid/{id}")
     Boolean getBusById(@PathVariable("id") Integer id);
 
+
     @PostMapping ("/getbuses")
     List<BusResponseDTO> getbuses(@RequestBody BusRequestDTO busRequestDTO);
+
 
 }
 
