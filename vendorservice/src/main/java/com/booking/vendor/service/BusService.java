@@ -33,29 +33,31 @@ public class BusService {
     }
 
     public List<BusResponseDTO> getBuses(BusRequestDTO busRequestDTO){
+        // Fetch all buses with the given bus IDs
         List<Bus> buses = busDAO.findByBusidIn(busRequestDTO.busids);
 
+        // Extract vendor IDs directly from the list of buses
         List<Integer> vendorIds = buses.stream()
                 .map(Bus::getVendorid)
                 .distinct()
-                .toList();
+                .collect(Collectors.toList());
 
-        List<Vendor> vendors = vendorDAO.findAllById(vendorIds);
-
-        Map<Integer, String> names = vendors.stream()
+        // Fetch all vendors at once
+        Map<Integer, String> vendorNames = vendorDAO.findAllById(vendorIds).stream()
                 .collect(Collectors.toMap(Vendor::getVendorid, Vendor::getVendorname));
 
-        List<BusResponseDTO> busResponse = new ArrayList<>();
-        for(Bus bus: buses){
-            BusResponseDTO busResponseDTO = new BusResponseDTO();
-            busResponseDTO.setBusid(bus.getBusid());
-            busResponseDTO.setVendorname(names.get(bus.getBusid()));
-            busResponseDTO.setBusno(bus.getBusnumber());
-            busResponse.add(busResponseDTO);
-        }
-        return busResponse;
-
+        // Map each bus to a BusResponseDTO in one step
+        return buses.stream()
+                .map(bus -> {
+                    BusResponseDTO dto = new BusResponseDTO();
+                    dto.setBusid(bus.getBusid());
+                    dto.setVendorname(vendorNames.get(bus.getVendorid()));
+                    dto.setBusno(bus.getBusnumber());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
+
     public Boolean getBusById(Integer busid)
     {
         return busDAO.existsById(busid);

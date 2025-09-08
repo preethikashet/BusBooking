@@ -5,6 +5,7 @@ import com.booking.vendor.entity.Bus;
 import com.booking.vendor.entity.Route;
 import com.booking.vendor.service.BusService;
 import com.booking.vendor.service.RouteService;
+import org.example.dto.RouteRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,11 @@ public class RouteController {
     public String addRoute(@RequestBody Route route){
         return routeService.addRoute(route);
 
+    }
+
+    @GetMapping("/getrouteid")
+    public ResponseEntity<Integer> getRoute(@RequestBody RouteRequestDTO routeRequestDTO){
+        return ResponseEntity.ok(routeService.getRouteId(routeRequestDTO.source, routeRequestDTO.destination));
     }
 
 

@@ -3,8 +3,13 @@ package com.booking.schedule.controller;
 import com.booking.schedule.entity.Schedule;
 import com.booking.schedule.service.ScheduleService;
 import org.hibernate.annotations.GenericGenerator;
+
+import org.example.dto.BookingResponseDTO;
+import org.example.dto.BusResponseDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +36,7 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.getSchedules());
     }
 
+
     /**
      *
      * @return
@@ -39,6 +45,19 @@ public class ScheduleController {
     public String test() {
         return "Test/test";
     }
+
+    @GetMapping("/getBuses")
+    public ResponseEntity<List<BusResponseDTO>> getBuses()
+   {
+       return ResponseEntity.ok(scheduleService.getBusDetails());
+   }
+
+   @GetMapping("/getR")
+    public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats()
+   {
+       return ResponseEntity.ok(scheduleService.getRemainingSeats());
+   }
+
 
 
 
