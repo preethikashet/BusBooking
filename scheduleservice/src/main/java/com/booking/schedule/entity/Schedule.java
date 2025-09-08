@@ -21,6 +21,7 @@ public class Schedule {
 
     @Column
     public Integer busid;
+    public Integer price;
     public Integer routeid;
     public Integer driverid;
     public LocalDateTime arrivaltime;

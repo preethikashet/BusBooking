@@ -18,4 +18,5 @@ public class UserResponseDTO {
     public String vendorname;
     public LocalDateTime arrival;
     public LocalDateTime departure;
+
 }

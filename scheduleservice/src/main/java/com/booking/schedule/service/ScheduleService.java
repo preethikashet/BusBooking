@@ -3,6 +3,7 @@ package com.booking.schedule.service;
 import com.booking.schedule.client.BusClient;
 //import com.booking.schedule.client.VendorClient;
 
+import com.booking.schedule.client.DriverClient;
 import com.booking.schedule.client.RouteClient;
 import com.booking.schedule.client.SeatClient;
 
@@ -10,8 +11,9 @@ import com.booking.schedule.entity.Schedule;
 //import com.booking.schedule.client.BusClient;
 //import com.booking.schedule.client.RouteClient;
 import com.booking.schedule.repository.Schedulerepository;
-import com.netflix.discovery.converters.Auto;
+
 import org.example.dto.*;
+import org.example.dto.UserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +34,7 @@ public class ScheduleService {
     @Autowired
     public BusClient busClient;
     @Autowired
-    public DriverClient
+    public DriverClient driverClient;
 
     @Autowired
     public SeatClient seatClient;
@@ -77,7 +80,7 @@ public class ScheduleService {
 
 
      public List<UserResponseDTO> getSchedules(String src, String dest, String date){
-         RouteRequestDTO routeRequestDTO = new RouteRequestDTO(src,dest);
+         RouteRequestDTO routeRequestDTO = new RouteRequestDTO(src, dest);
          Integer routeid = getRoute(routeRequestDTO);
          LocalDate bookingDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-mm-yyyy"));
          List<Schedule> scheduleList = schedulerepository.findBusIdsByRouteAndDate(routeid,bookingDate);
@@ -109,15 +112,42 @@ public class ScheduleService {
          BusRequestDTO busRequestDTO = new BusRequestDTO(busids);
          List<BusResponseDTO> busResponseDTOList = getBusDetails(busRequestDTO);
          DriverRequestDTO driverRequestDTO = new DriverRequestDTO(driverids);
-         List<DriverResponseDTO> driverResponseDTOList = getDriverDetails(driverRequestDTO)
+         List<DriverResponseDTO> driverResponseDTOList = getDriverDetails(driverRequestDTO);
 
-        return null;
+         Map<Integer, BusResponseDTO> busMap = busResponseDTOList.stream()
+                 .collect(Collectors.toMap(b -> b.busid, b -> b));
+
+         Map<Integer, DriverResponseDTO> driverMap = driverResponseDTOList.stream()
+                 .collect(Collectors.toMap(d -> d.driverid, d -> d));
+
+         Map<Integer, BookingResponseDTO> bookingMap = bookingResponseDTOList.stream()
+                 .collect(Collectors.toMap(b -> b.busid, b -> b));
+
+         // 10. Construct UserResponseDTO
+         List<UserResponseDTO> userResponseList = filteredSchedules.stream()
+                 .map(schedule -> {
+                     BusResponseDTO bus = busMap.get(schedule.getBusid());
+                     DriverResponseDTO driver = driverMap.get(schedule.getDriverid());
+                     BookingResponseDTO booking = bookingMap.get(schedule.getBusid());
+
+                     UserResponseDTO dto = new UserResponseDTO();
+                     dto.busnumber = bus.busno;
+                     dto.vendorname = bus.vendorname;
+                     dto.drivernumber = driver.drivernumber;
+                     dto.remainingseats = booking.remainingseats;
+                     dto.arrival = schedule.getArrivaltime();
+                     dto.departure = schedule.getDeparturetime();
+                     return dto;
+                 })
+                 .toList();
+
+         return userResponseList;
 
 
      }
 
     private List<DriverResponseDTO> getDriverDetails(DriverRequestDTO driverRequestDTO) {
-       return dri
+       return driverClient.getDriverDetails(driverRequestDTO).getBody();
 
     }
 
