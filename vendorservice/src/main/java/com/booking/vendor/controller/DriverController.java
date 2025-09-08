@@ -6,6 +6,8 @@ import com.booking.vendor.entity.Driver;
 import com.booking.vendor.entity.Route;
 import com.booking.vendor.service.DriverService;
 import com.booking.vendor.service.RouteService;
+import org.example.dto.DriverRequestDTO;
+import org.example.dto.DriverResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,11 @@ public class DriverController {
     public String deleteDriver(@PathVariable Integer id)
     {
         return driverService.deleteDriver(id);
+    }
+
+    @PostMapping("/getdrivers")
+    public ResponseEntity<List<DriverResponseDTO>> getDriver(@RequestBody DriverRequestDTO driverRequestDTO){
+        return ResponseEntity.ok(driverService.getDriverDetails(driverRequestDTO.driverids));
     }
 
 
