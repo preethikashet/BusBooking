@@ -46,8 +46,8 @@ public class SeatStatusController {
      *
      * @return
      */
-    @PostMapping("/getseats")
-    public ResponseEntity<List<SeatStatusEntity>> getRemainingSe(){
+    @GetMapping ("/getseats")
+    public ResponseEntity<List<SeatStatusEntity>> getseats(){
         return ResponseEntity.ok(seatStatusService.getAll());
     }
 
