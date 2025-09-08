@@ -37,8 +37,8 @@ public class SeatStatusController {
      * @return
      */
     @PostMapping("/getseatstatusforids")
-    public List<BookingResponseDTO> getRemainingSeats(@RequestBody BookingRequestDTO requestDTO){
-        return seatStatusService.getRemainingSeats(requestDTO);
+    public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats(@RequestBody BookingRequestDTO requestDTO){
+        return ResponseEntity.ok(seatStatusService.getRemainingSeats(requestDTO));
     }
 
 }
