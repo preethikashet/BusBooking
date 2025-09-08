@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@FeignClient(name="vendorservice", url="/api/driver")
+@FeignClient(name="vendorservice",contextId = "DriverClient", url="/api/driver")
 public interface DriverClient {
     @PostMapping("/getdrivers")
     ResponseEntity<List<DriverResponseDTO>> getDriverDetails(DriverRequestDTO driverRequestDTO);
