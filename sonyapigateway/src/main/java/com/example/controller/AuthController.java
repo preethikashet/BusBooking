@@ -1,13 +1,10 @@
 package com.example.controller;
 
 import com.example.dto.LoginRequest;
-import com.example.dto.RegisterRequest;
-import com.example.entity.User;
-//import com.example.service.KPIService;
+import com.example.entity.Vendor;
 import com.example.service.UserService;
 import com.example.util.JwtUtil;
 import jakarta.validation.Valid;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000/",methods = {RequestMethod.GET,RequestMethod.PUT, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class AuthController {
 
     @Autowired
@@ -30,15 +27,16 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private KPIService kpiService;
-
     @Autowired
     private JwtUtil jwtUtil;
 
+    // -------------------------
+    // ✅ LOGIN API
+    // -------------------------
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
+            // Authenticate user
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getEmail(),
@@ -46,68 +44,58 @@ public class AuthController {
                     )
             );
 
+            // Set authentication context
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // Generate JWT token
             String jwt = jwtUtil.generateToken(authentication);
 
-            User user = (User) authentication.getPrincipal();
+            // Get vendor details
+            Vendor vendor = (Vendor) authentication.getPrincipal();
 
+            // Prepare response
             Map<String, Object> response = new HashMap<>();
+            response.put("message", "Login successful");
             response.put("token", jwt);
-            response.put("id", user.getId());
-            response.put("email", user.getEmail());
-            response.put("role", user.getRole());
+            response.put("id", vendor.getVendorid());
+            response.put("vendorname", vendor.getVendorname());
+            response.put("email", vendor.getEmail());
             response.put("expiresIn", jwtUtil.getExpirationDateFromToken(jwt).getTime());
 
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            Map<String, String> error = new HashMap<>();
-            error.put("message", "Invalid email or password");
-            return ResponseEntity.status(401).body(error);
+            return ResponseEntity.status(401).body(Map.of("message", "Invalid email or password"));
         }
     }
 
+    // -------------------------
+    // ✅ REGISTER API
+    // -------------------------
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody Vendor vendor) {
         try {
-            if (registerRequest.getId() != null && userService.existsById(registerRequest.getId())) {
-                return ResponseEntity.badRequest().body(Map.of("message", "User ID already exists"));
+            // Check if vendor ID already exists
+            if (vendor.getVendorid() != null && userService.existsById(vendor.getVendorid())) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Vendor ID already exists"));
             }
 
-            if (userService.existsByEmail(registerRequest.getEmail())) {
+            // Check if email already exists
+            if (userService.existsByEmail(vendor.getEmail())) {
                 return ResponseEntity.badRequest().body(Map.of("message", "Email already exists"));
             }
 
-            User user = (registerRequest.getId() != null) ?
-                    new User(
-                            registerRequest.getId(),
-                            registerRequest.getFirstName(),
-                            registerRequest.getLastName(),
-                            registerRequest.getEmail(),
-                            registerRequest.getPassword(),
-                            registerRequest.getTeamName()
-                    ) :
-                    new User(
-                            registerRequest.getFirstName(),
-                            registerRequest.getLastName(),
-                            registerRequest.getEmail(),
-                            registerRequest.getPassword(),
-                            registerRequest.getTeamName()
-                    );
-
-            User savedUser = userService.createUser(user);
-//            kpiService.initializeDefaultKPIs(savedUser);
+            // Save vendor
+            Vendor savedVendor = userService.createUser(vendor);
 
             return ResponseEntity.ok(Map.of(
-                    "message", "User registered successfully",
-                    "id", savedUser.getId()
+                    "message", "Vendor registered successfully",
+                    "id", savedVendor.getVendorid(),
+                    "email", savedVendor.getEmail()
             ));
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
-
     }
-
-
 }

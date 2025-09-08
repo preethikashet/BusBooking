@@ -1,6 +1,7 @@
 package com.example.service;
 
-import com.example.entity.User;
+import com.example.entity.Vendor;
+import com.example.entity.Vendor;
 import com.example.exceptions.ResourceNotFoundException;
 import com.example.repository.UserRepository;
 import org.slf4j.Logger;
@@ -40,35 +41,34 @@ public class UserService implements UserDetailsService {
                 });
     }
 
-    public List<User> findAllUsers() {
+    public List<Vendor> findAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findById(Long id) {
+    public Optional<Vendor> findById(Integer id) {
         return userRepository.findById(id);
     }
 
-    public User updateUser(Long id, User userDetails) {
-        User user = userRepository.findById(id)
+    public Vendor updateUser(Integer id, Vendor userDetails) {
+        Vendor vendor = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
         // Update fields that are allowed to be changed
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setEmail(userDetails.getEmail());
-        user.setTeamName(userDetails.getTeamName());
+        vendor.setVendorname(userDetails.getVendorname());
+        vendor.setEmail(userDetails.getEmail());
+        vendor.setPhoneno(userDetails.getPhoneno());
 
-        return userRepository.save(user);
+        return userRepository.save(vendor);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Integer id) {
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
     }
 
-    public User createUser(User user) {
+    public Vendor createUser(Vendor user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
@@ -81,7 +81,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByEmail(email);
     }
 
-    public boolean existsById(Long id) {
+    public boolean existsById(Integer id) {
         return userRepository.existsById(id);
     }
 }
