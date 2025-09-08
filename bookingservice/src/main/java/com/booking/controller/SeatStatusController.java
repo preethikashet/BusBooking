@@ -38,6 +38,7 @@ public class SeatStatusController {
      */
     @PostMapping("/getseatstatusforids")
     public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats(@RequestBody BookingRequestDTO requestDTO){
+        List<BookingResponseDTO> bookingResponseDTOList = seatStatusService.getRemainingSeats(requestDTO);
         return ResponseEntity.ok(seatStatusService.getRemainingSeats(requestDTO));
     }
 
