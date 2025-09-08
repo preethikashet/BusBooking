@@ -16,12 +16,20 @@ public class VendorController {
     @Autowired
     private VendorService vendorService;
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/get")
     public ResponseEntity<List<Vendor>> getVendor() {
         return ResponseEntity.ok(vendorService.getVendor());
     }
 
-
+    /**
+     *
+     * @param vendor
+     * @return
+     */
     @PostMapping("/add")
     public String addVendor(@RequestBody Vendor vendor){
         return vendorService.addVendor(vendor);

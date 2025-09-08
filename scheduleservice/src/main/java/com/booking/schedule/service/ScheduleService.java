@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -82,7 +83,7 @@ public class ScheduleService {
      public List<UserResponseDTO> getSchedules(String src, String dest, String date){
          RouteRequestDTO routeRequestDTO = new RouteRequestDTO(src, dest);
          Integer routeid = getRoute(routeRequestDTO);
-         LocalDate bookingDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+         LocalDate bookingDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
          List<Schedule> scheduleList = schedulerepository.findBusIdsByRouteAndDate(routeid,bookingDate);
 
          //get all bus details
@@ -94,7 +95,7 @@ public class ScheduleService {
          List<BookingResponseDTO> bookingResponseDTOList=
                  getRemainingSeats(
                          new BookingRequestDTO(
-                                 Date.from(bookingDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                                Date.from(Instant.now()),
                                  allbusids
                          ));
 

@@ -29,13 +29,22 @@ public class BusController {
         return ResponseEntity.ok(busService.getBus());
     }
 
-
+    /**
+     *
+     * @param bus
+     * @return
+     */
     @PostMapping("/add")
     public String addBus(@RequestBody Bus bus){
         return busService.addBus(bus);
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/getbyid/{id}")
     public Boolean getBusById(@PathVariable Integer id)
     {

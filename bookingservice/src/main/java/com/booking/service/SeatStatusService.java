@@ -33,4 +33,8 @@ public class SeatStatusService {
                }).collect(Collectors.toList());
    }
 
+   public List<SeatStatusEntity> getAll(){
+        return seatStatusRepository.findAll();
+   }
+
 }

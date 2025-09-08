@@ -21,12 +21,20 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/get")
     public ResponseEntity<List<Driver>> getDriver() {
         return ResponseEntity.ok(driverService.getDriver());
     }
 
-
+    /**
+     *
+     * @param driver
+     * @return
+     */
     @PostMapping("/add")
     public String addDriver(@RequestBody Driver driver){
         return driverService.addDriver(driver);
@@ -39,6 +47,11 @@ public class DriverController {
         return driverService.deleteDriver(id);
     }
 
+    /**
+     *
+     * @param driverRequestDTO
+     * @return
+     */
     @PostMapping("/getdrivers")
     public ResponseEntity<List<DriverResponseDTO>> getDriver(@RequestBody DriverRequestDTO driverRequestDTO){
         return ResponseEntity.ok(driverService.getDriverDetails(driverRequestDTO.driverids));

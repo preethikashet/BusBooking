@@ -51,22 +51,22 @@ public class ScheduleController {
         return "Test/test";
     }
 
-    @GetMapping("/getBuses")
-    public ResponseEntity<List<BusResponseDTO>> getBuses()
-   {
-       return ResponseEntity.ok(scheduleService.getBusDetails());
-   }
+//    @GetMapping("/getBuses")
+//    public ResponseEntity<List<BusResponseDTO>> getBuses()
+//   {
+//       return ResponseEntity.ok(scheduleService.getBusDetails());
+//   }
 
-   @GetMapping("/getR")
-    public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats()
-   {
-       return ResponseEntity.ok(scheduleService.getRemainingSeats());
-   }
+//   @GetMapping("/getR")
+//    public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats()
+//   {
+//       return ResponseEntity.ok(scheduleService.getRemainingSeats());
+//   }
 
    @GetMapping("/search")
-    public ResponseEntity<UserResponseDTO> searchBus(@RequestParam String src, String dst, Date bookingdate)
+    public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src,@RequestParam String dst,@RequestParam String bookingdate)
    {
-
+     return  ResponseEntity.ok(scheduleService.getSchedules(src, dst, bookingdate));
 
    }
 

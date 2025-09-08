@@ -24,14 +24,23 @@ public class RouteController {
         return ResponseEntity.ok(routeService.getRoute());
     }
 
-
+    /**
+     *
+     * @param route
+     * @return
+     */
     @PostMapping("/add")
     public String addRoute(@RequestBody Route route){
         return routeService.addRoute(route);
 
     }
 
-    @GetMapping("/getrouteid")
+    /**
+     *
+     * @param routeRequestDTO
+     * @return
+     */
+    @PostMapping("/getrouteid")
     public ResponseEntity<Integer> getRoute(@RequestBody RouteRequestDTO routeRequestDTO){
         return ResponseEntity.ok(routeService.getRouteId(routeRequestDTO.source, routeRequestDTO.destination));
     }

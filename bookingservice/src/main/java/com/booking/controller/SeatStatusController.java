@@ -1,11 +1,11 @@
 package com.booking.controller;
 
 
-import com.booking.entity.BookingEntity;
+
 import com.booking.entity.SeatStatusEntity;
-import com.booking.service.BookingService;
+
 import com.booking.service.SeatStatusService;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 import org.example.dto.BookingRequestDTO;
 import org.example.dto.BookingResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,15 @@ public class SeatStatusController {
     public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats(@RequestBody BookingRequestDTO requestDTO){
         List<BookingResponseDTO> bookingResponseDTOList = seatStatusService.getRemainingSeats(requestDTO);
         return ResponseEntity.ok(seatStatusService.getRemainingSeats(requestDTO));
+    }
+
+    /**
+     *
+     * @return
+     */
+    @PostMapping("/getseats")
+    public ResponseEntity<List<SeatStatusEntity>> getRemainingSe(){
+        return ResponseEntity.ok(seatStatusService.getAll());
     }
 
 }
