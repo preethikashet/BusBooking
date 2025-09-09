@@ -33,7 +33,6 @@ public class VendorController {
     @PostMapping("/add")
     public String addVendor(@RequestBody Vendor vendor){
         return vendorService.addVendor(vendor);
-
     }
 
 

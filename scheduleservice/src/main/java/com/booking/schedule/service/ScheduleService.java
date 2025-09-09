@@ -76,7 +76,9 @@ public class ScheduleService {
 
      public Integer getRoute(RouteRequestDTO routeRequestDTO)
      {
-         return routeClient.getRoute(routeRequestDTO).getBody();
+         Integer routeid = routeClient.getRoute(routeRequestDTO).getBody();
+         System.out.println(routeid);
+         return routeid;
      }
 
 
@@ -85,7 +87,7 @@ public class ScheduleService {
          Integer routeid = getRoute(routeRequestDTO);
          LocalDate bookingDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
          List<Schedule> scheduleList = schedulerepository.findBusIdsByRouteAndDate(routeid,bookingDate);
-
+         System.out.println("length "+scheduleList.size());
          //get all bus details
          List<Integer> allbusids = scheduleList.stream().map(Schedule::getBusid).toList();
 
@@ -95,15 +97,17 @@ public class ScheduleService {
          List<BookingResponseDTO> bookingResponseDTOList=
                  getRemainingSeats(
                          new BookingRequestDTO(
-                                Date.from(Instant.now()),
+                                bookingDate,
                                  allbusids
                          ));
 
+         List<Integer> bookingbusids = bookingResponseDTOList.stream().map(BookingResponseDTO::getBusid).toList();
          List<Schedule> filteredSchedules = scheduleList.stream()
-                 .filter(schedule -> bookingResponseDTOList.contains(schedule.getBusid()))  // Check if busId is present in the response DTO
+                 .filter(schedule -> bookingbusids.contains(schedule.busid))  // Check if busId is present in the response DTO
                  .toList();
 
 
+         System.out.println("length filtered "+filteredSchedules.size());
 
 
 
