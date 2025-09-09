@@ -55,6 +55,7 @@ public class BusService {
                     dto.setBusid(bus.getBusid());
                     dto.setVendorname(vendorNames.get(bus.getVendorid()));
                     dto.setBusno(bus.getBusnumber());
+                    dto.setTotalseats(bus.getTotalseats());
                     return dto;
                 })
                 .collect(Collectors.toList());

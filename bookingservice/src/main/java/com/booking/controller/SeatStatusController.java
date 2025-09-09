@@ -8,6 +8,8 @@ import com.booking.service.SeatStatusService;
 
 import org.example.dto.BookingRequestDTO;
 import org.example.dto.BookingResponseDTO;
+import org.example.dto.CreateSeatStatusDTO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +25,16 @@ public class SeatStatusController {
 
     /**
      *
-     * @param seatStatusEntity
+     * @param createSeatStatusDTO
      * @return
      */
+
     @PostMapping("/add")
-    public String addseatstatus(@RequestBody SeatStatusEntity seatStatusEntity){
+    public String addseatstatus(@RequestBody CreateSeatStatusDTO createSeatStatusDTO){
+        SeatStatusEntity seatStatusEntity = new SeatStatusEntity();
+        BeanUtils.copyProperties(createSeatStatusDTO, seatStatusEntity);
+        // creating occupied seats as zero
+        seatStatusEntity.setOccupiedseats(0);
         return seatStatusService.addseats(seatStatusEntity);
     }
 

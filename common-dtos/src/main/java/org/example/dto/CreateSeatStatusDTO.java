@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class BookingRequestDTO {
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    public LocalDate scheduledate;
-    public List<Integer> busids;
+public class CreateSeatStatusDTO {
+        private int seatstatusId;
+        @JsonFormat(pattern = "dd-MM-yyyy")
+        private LocalDate date;
+        private Integer busId;
+        private Integer totalseats;
 }

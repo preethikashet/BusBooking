@@ -14,7 +14,9 @@ import com.booking.schedule.repository.Schedulerepository;
 
 import org.example.dto.*;
 import org.example.dto.UserResponseDTO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +24,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,8 +48,20 @@ public class ScheduleService {
     {
         if(!busClient.getBusById(schedule.getBusid()))
             throw new RuntimeException("Bus with given busid doesnot exists");
-//        if(!routeClient.checkRouteExists(schedule.getRouteid()))
-//            throw new RuntimeException("Route with thos route id doesnot exists");
+
+        //creating seat status
+        CreateSeatStatusDTO dto = new CreateSeatStatusDTO();
+
+        //coping data
+        dto.setSeatstatusId(schedule.getScheduleid());
+        dto.setDate(LocalDate.from(schedule.getDeparturetime()));
+        dto.setBusId(schedule.getBusid());
+        //getting total seat from vendorclient
+        dto.setTotalseats(Objects.requireNonNull(busClient.getbuses(new BusRequestDTO(List.of(1))).getBody()).get(0).getTotalseats());
+        //calling seatClient to save
+        seatClient.addseatstatus( dto);
+
+        //creating schedule
         schedulerepository.save(schedule);
         return "Schedule added";
     }
@@ -142,6 +153,8 @@ public class ScheduleService {
                      dto.remainingseats = booking.remainingseats;
                      dto.arrival = schedule.getArrivaltime();
                      dto.departure = schedule.getDeparturetime();
+                     dto.scheduleid = schedule.getScheduleid();
+                     dto.price = schedule.getPrice();
                      return dto;
                  })
                  .toList();

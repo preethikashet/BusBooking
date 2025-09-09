@@ -32,6 +32,7 @@ public class ScheduleController {
      */
     @PostMapping("/addschedule")
     public String addS(@RequestBody Schedule schedule){
+
         return scheduleService.addSchedule(schedule);
     }
 
@@ -51,17 +52,7 @@ public class ScheduleController {
         return "Test/test";
     }
 
-//    @GetMapping("/getBuses")
-//    public ResponseEntity<List<BusResponseDTO>> getBuses()
-//   {
-//       return ResponseEntity.ok(scheduleService.getBusDetails());
-//   }
 
-//   @GetMapping("/getR")
-//    public ResponseEntity<List<BookingResponseDTO>> getRemainingSeats()
-//   {
-//       return ResponseEntity.ok(scheduleService.getRemainingSeats());
-//   }
 
    @GetMapping("/search")
     public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src,@RequestParam String dst,@RequestParam String bookingdate)

@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 public class Schedule {
     @Id
     public Integer scheduleid;
-
     @Column
     public Integer busid;
     public Integer price;
