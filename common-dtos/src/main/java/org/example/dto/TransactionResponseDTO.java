@@ -12,13 +12,11 @@ import java.time.LocalDateTime;
 public class TransactionResponseDTO {
     public Integer userid;
     public String username;
-    public Integer vendorid;
     public Integer busid;
     public Integer price;
     public Integer transactionid;
     public Integer scheduleid;
     public String vendorname;
-    public String busname;
     public LocalDateTime arrival;
     public LocalDateTime departure;
     public String busnumber;
