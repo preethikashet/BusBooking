@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    private String userid;
+    private Integer userid;
     @Column
     private String uname;
     private String gender;
