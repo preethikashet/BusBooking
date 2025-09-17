@@ -15,4 +15,6 @@ import java.util.List;
 @Repository
 public interface SeatStatusRepository extends JpaRepository<SeatStatusEntity,Integer> {
     List<SeatStatusEntity> findByBusIdInAndDate(List<Integer> busId,  LocalDate date);
+    SeatStatusEntity findByBusId (Integer busId);
+
 }

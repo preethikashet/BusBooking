@@ -22,5 +22,5 @@ public class BookingEntity {
     private Integer transactionid;
     private Integer userid;
     private Integer scheduleid;
-    private String bookingstatus;
+
 }
