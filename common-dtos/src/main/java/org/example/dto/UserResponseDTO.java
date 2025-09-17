@@ -23,4 +23,5 @@ public class UserResponseDTO {
     public LocalDateTime departure;
     public Integer scheduleid;
     public Integer price;
+    public Integer busid;
 }

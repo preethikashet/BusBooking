@@ -8,7 +8,12 @@ import lombok.*;
 @Setter
 @Getter
 public class UserBookBusRequestDTO {
-    public Integer userid;
+    public String userid;
+    public String username;
+    public String gender;
+    public String email;
+    public String phno;
+    public int age;
     public UserResponseDTO userResponseDTO;
 
 }

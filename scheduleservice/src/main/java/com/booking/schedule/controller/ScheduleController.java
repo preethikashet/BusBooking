@@ -3,6 +3,7 @@ package com.booking.schedule.controller;
 import com.booking.schedule.entity.Schedule;
 import com.booking.schedule.service.ScheduleService;
 import feign.Param;
+import jakarta.validation.Valid;
 import org.example.dto.RouteRequestDTO;
 import org.example.dto.UserResponseDTO;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,7 +32,7 @@ public class ScheduleController {
      * @return
      */
     @PostMapping("/addschedule")
-    public String addS(@RequestBody Schedule schedule){
+    public String addS(@Valid @RequestBody Schedule schedule){
 
         return scheduleService.addSchedule(schedule);
     }

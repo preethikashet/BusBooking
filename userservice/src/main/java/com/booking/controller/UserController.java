@@ -2,6 +2,8 @@ package com.booking.controller;
 
 import com.booking.entity.UserEntity;
 import com.booking.service.UserService;
+import org.example.dto.UserBookBusRequestDTO;
+import org.example.dto.UserDTO;
 import org.example.dto.UserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +40,39 @@ public class UserController {
     {
         List<UserResponseDTO> buses = userService.searchBus(src, dst, bookingDate);
         return ResponseEntity.ok(buses);
+    }
+
+    @PostMapping("/adduser")
+    public String addUser(@RequestBody UserEntity userEntity)
+    {
+        return userService.addUser(userEntity);
+    }
+
+    @PostMapping("/book")
+    public String bookBus(@RequestBody UserDTO userDTO)
+    {
+        List<UserEntity> users = userService.getUsers();
+        UserEntity user = users.stream().filter(u->u.getEmail().equals(userDTO.getEmail())).findFirst().orElse(null);
+        if(user == null) return "User with this email id doesnot exist";
+        else{
+
+        UserBookBusRequestDTO userBookBusRequestDTO = new UserBookBusRequestDTO();
+//        UserDTO userDTO = new UserDTO();
+        userBookBusRequestDTO.setPhno(user.getPhno());
+        userBookBusRequestDTO.setEmail(user.getEmail());
+        userBookBusRequestDTO.setAge(user.getAge());
+        userBookBusRequestDTO.setUsername(user.getUname());
+        userBookBusRequestDTO.setUserid(user.getUserid());
+        userBookBusRequestDTO.setGender(user.getGender());
+        userBookBusRequestDTO.setUserResponseDTO(userDTO.getUserResponseDTO());
+
+
+
+
+        }
+
+
+
+        return null;
     }
 }

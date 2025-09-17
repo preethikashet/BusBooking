@@ -46,8 +46,8 @@ public class ScheduleService {
 
     public String addSchedule(Schedule schedule)
     {
-        if(!busClient.getBusById(schedule.getBusid()))
-            throw new RuntimeException("Bus with given busid doesnot exists");
+//        if(!busClient.getBusById(schedule.getBusid()))
+//            throw new RuntimeException("Bus with given busid doesnot exists");
 
         //creating seat status
         CreateSeatStatusDTO dto = new CreateSeatStatusDTO();
@@ -155,6 +155,7 @@ public class ScheduleService {
                      dto.departure = schedule.getDeparturetime();
                      dto.scheduleid = schedule.getScheduleid();
                      dto.price = schedule.getPrice();
+                     dto.busid=bus.busid;
                      return dto;
                  })
                  .toList();

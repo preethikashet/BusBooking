@@ -19,7 +19,7 @@ public interface BusClient {
 
     @PostMapping ("/getbuses")
     ResponseEntity<List<BusResponseDTO>> getbuses(@RequestBody BusRequestDTO busRequestDTO);
-
+    
 
 }
 
