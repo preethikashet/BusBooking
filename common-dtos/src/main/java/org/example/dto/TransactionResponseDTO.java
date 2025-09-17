@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransactionResponseDTO {
     public Integer userid;
+    public String username;
     public Integer vendorid;
     public Integer busid;
     public Integer price;
