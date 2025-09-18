@@ -35,9 +35,9 @@ public class BookingController {
     }
 
     @PostMapping("/bookBus")
-    public ResponseEntity<UserBookBusResponseDTO> bookBus(@RequestBody UserBookBusRequestDTO request) {
+    public UserBookBusResponseDTO bookBus(@RequestBody UserBookBusRequestDTO request) {
         UserBookBusResponseDTO response = bookingService.bookbus(request);
-        return ResponseEntity.ok(response);
+        return response;
     }
 
 
