@@ -18,7 +18,8 @@ public class TransactionEntity {
     private int userid;
     private int price;
     private LocalDateTime timestamp;
-    private int vendorid;
+//    private int vendorid;
+    private String vendorname;
     private int notificationstatus;
 
 }
