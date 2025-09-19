@@ -16,18 +16,34 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    /**
+     *
+     * @param transactionEntity
+     * @return
+     */
     @PostMapping("/add")
     public  String addtransaction(@RequestBody TransactionEntity transactionEntity){
         return transactionService.addtransaction(transactionEntity);
     }
+
+    /**
+     *
+     * @return
+     */
     @GetMapping("/data")
     public ResponseEntity<List<TransactionEntity>> getpayment() {
         return ResponseEntity.ok(transactionService.getallpayments());
     }
 
+    /**
+     *
+     * @param requestDTO
+     * @return
+     */
     @PostMapping("/processBooking")
     public TransactionResponseDTO processBooking(@RequestBody UserBookBusRequestDTO requestDTO)
     {
         return transactionService.processBooking(requestDTO);
     }
+
 }
