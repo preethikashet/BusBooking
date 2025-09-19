@@ -20,7 +20,7 @@ import java.util.Collections;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "vendortable")
+@Table(name = "vendorgatetable")
 public class Vendor implements UserDetails {
 
     @Id

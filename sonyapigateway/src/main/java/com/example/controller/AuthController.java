@@ -1,11 +1,14 @@
 package com.example.controller;
 
 import com.example.dto.LoginRequest;
+import com.example.dto.VendorDTO;
 import com.example.entity.Vendor;
 import com.example.service.UserService;
 import com.example.util.JwtUtil;
 import jakarta.validation.Valid;
+import org.example.dto.UserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,6 +33,10 @@ public class AuthController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private VendorClient vendorClient;
+
 
     // -------------------------
     // ✅ LOGIN API
@@ -69,6 +77,11 @@ public class AuthController {
         }
     }
 
+    /**
+     *
+     * @param vendor
+     * @return
+     */
     // -------------------------
     // ✅ REGISTER API
     // -------------------------
@@ -85,6 +98,9 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(Map.of("message", "Email already exists"));
             }
 
+            vendorClient.addVendor(new VendorDTO(vendor.getVendorid(), vendor.getVendorname(), vendor.getPhoneno()));
+
+
             // Save vendor
             Vendor savedVendor = userService.createUser(vendor);
 
@@ -99,3 +115,13 @@ public class AuthController {
         }
     }
 }
+
+
+
+@FeignClient(name = "vendorservice",contextId = "VendorClient",path = "/api/vendor")
+interface VendorClient{
+    @PostMapping("/add")
+    public String addVendor(@RequestBody VendorDTO vendor) ;
+}
+
+

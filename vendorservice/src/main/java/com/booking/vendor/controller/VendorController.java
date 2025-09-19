@@ -32,6 +32,8 @@ public class VendorController {
      */
     @PostMapping("/add")
     public String addVendor(@RequestBody Vendor vendor){
+
+        System.out.println(vendor.getVendorname()+" "+vendor.getPhoneno());
         return vendorService.addVendor(vendor);
     }
 
