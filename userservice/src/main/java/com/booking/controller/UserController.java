@@ -2,6 +2,7 @@ package com.booking.controller;
 
 import com.booking.entity.UserEntity;
 import com.booking.service.UserService;
+import org.apache.http.HttpStatus;
 import org.example.dto.UserBookBusRequestDTO;
 import org.example.dto.UserDTO;
 import org.example.dto.UserResponseDTO;
@@ -24,14 +25,12 @@ public class UserController {
      * @return
      */
     @PostMapping("/register")
-    public  String addbooking(@RequestBody UserEntity userEntity){
+    public ResponseEntity<String> addbooking(@RequestBody UserEntity userEntity){
 //        return bookingService.addbooking(bookingEntity);
-         return "User not yet added";
+        return ResponseEntity.ok("user created");
     }
     /**
      *
-     * @param src
-     * @param dst
      * @param bookingDate
      * @return
      */
@@ -42,12 +41,22 @@ public class UserController {
         return ResponseEntity.ok(buses);
     }
 
+    /**
+     *
+     * @param userEntity
+     * @return
+     */
     @PostMapping("/adduser")
     public String addUser(@RequestBody UserEntity userEntity)
     {
         return userService.addUser(userEntity);
     }
 
+    /**
+     *
+     * @param userDTO
+     * @return
+     */
     @PostMapping("/book")
     public String bookBus(@RequestBody UserDTO userDTO)
     {
