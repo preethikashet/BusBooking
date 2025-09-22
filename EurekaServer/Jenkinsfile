@@ -10,7 +10,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                bat 'cd EurekaServer && mvn clean compile'
+
             }
         }
     }
