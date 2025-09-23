@@ -47,7 +47,7 @@ public class RouteController {
     }
 
     @PostMapping("/getroutebyid")
-    public ResponseEntity<List<Route>> getBusByVendorId(@RequestBody VendorIdDTO vendorIdDTO) {
+    public ResponseEntity<List<Route>> getBusByVendorIdRoute(@RequestBody VendorIdDTO vendorIdDTO) {
         List<Route> buses = routeService.getRouteByVendor(vendorIdDTO.getVendorid());
         return ResponseEntity.ok(buses);
     }

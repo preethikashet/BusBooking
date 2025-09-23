@@ -59,10 +59,11 @@ public class DriverController {
     }
 
     @PostMapping("/getdriverbyid")
-    public ResponseEntity<List<Driver>> getBusByVendorId(@RequestBody VendorIdDTO vendorIdDTO) {
+    public ResponseEntity<List<Driver>> getBusByVendorIdDriver(@RequestBody VendorIdDTO vendorIdDTO) {
         List<Driver> buses = driverService.getDriverByVendor(vendorIdDTO.getVendorid());
         return ResponseEntity.ok(buses);
     }
+
 
 
 
