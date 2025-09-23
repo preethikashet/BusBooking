@@ -45,4 +45,12 @@ interface EurekaTwo{
     @GetMapping("/testeurekaclienttwo")
     public String testeurekaclient();
 
+
+}
+
+@FeignClient(name = "vendorservice",path = "/api/route")
+interface Test{
+
+
+
 }

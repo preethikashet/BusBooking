@@ -7,6 +7,9 @@ import com.example.service.UserService;
 import com.example.util.JwtUtil;
 import jakarta.validation.Valid;
 import org.example.dto.UserResponseDTO;
+import org.example.dto.vendor.BusDTO;
+import org.example.dto.vendor.DriverDTO;
+import org.example.dto.vendor.RouteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -118,10 +121,21 @@ public class AuthController {
 
 
 
-@FeignClient(name = "vendorservice",contextId = "VendorClient",path = "/api/vendor")
+@FeignClient(name = "vendorservice",contextId = "VendorClient",path = "/api")
 interface VendorClient{
-    @PostMapping("/add")
+    @PostMapping("/vendor/add")
     public String addVendor(@RequestBody VendorDTO vendor) ;
+
+    @PostMapping("/bus/add")
+    public String addBus(@RequestBody BusDTO bus);
+
+    @PostMapping("/route/add")
+    public String addRoute(@RequestBody RouteDTO route);
+
+        @PostMapping("/driver/add")
+    public String addDriver(@RequestBody DriverDTO driver);
+
+
 }
 
 

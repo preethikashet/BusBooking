@@ -8,6 +8,7 @@ import com.booking.vendor.service.DriverService;
 import com.booking.vendor.service.RouteService;
 import org.example.dto.DriverRequestDTO;
 import org.example.dto.DriverResponseDTO;
+import org.example.dto.vendor.VendorIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,13 @@ public class DriverController {
     public ResponseEntity<List<DriverResponseDTO>> getDriver(@RequestBody DriverRequestDTO driverRequestDTO){
         return ResponseEntity.ok(driverService.getDriverDetails(driverRequestDTO.driverids));
     }
+
+    @PostMapping("/getdriverbyid")
+    public ResponseEntity<List<Driver>> getBusByVendorId(@RequestBody VendorIdDTO vendorIdDTO) {
+        List<Driver> buses = driverService.getDriverByVendor(vendorIdDTO.getVendorid());
+        return ResponseEntity.ok(buses);
+    }
+
 
 
 }

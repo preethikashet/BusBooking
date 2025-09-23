@@ -11,5 +11,6 @@ import java.util.List;
 @Repository
 public interface DriverDAO extends JpaRepository<Driver, Integer> {
     List<Driver> findByDriveridIn(List<Integer> ids);
+    List<Driver> findByVendorid(Integer id);
 
 }
