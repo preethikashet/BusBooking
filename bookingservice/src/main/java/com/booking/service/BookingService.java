@@ -37,8 +37,12 @@ public class BookingService {
     }
 
 
-    public UserBookBusResponseDTO bookbus (UserBookBusRequestDTO requestDTO){
+    public Object bookbus (UserBookBusRequestDTO requestDTO){
+
         TransactionResponseDTO transres = trans.makeTransaction(requestDTO);
+        if (transres == null){
+            return "Payment not succesfull";
+        }
 
         BookingEntity booking = new BookingEntity();
         booking.setBookid(new Random().nextInt(100));

@@ -35,8 +35,8 @@ public class BookingController {
     }
 
     @PostMapping("/bookBus")
-    public UserBookBusResponseDTO bookBus(@RequestBody UserBookBusRequestDTO request) {
-        UserBookBusResponseDTO response = bookingService.bookbus(request);
+    public Object bookBus(@RequestBody UserBookBusRequestDTO request) {
+        Object response = bookingService.bookbus(request);
         return response;
     }
 

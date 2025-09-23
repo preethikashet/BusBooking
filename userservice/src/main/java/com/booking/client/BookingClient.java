@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name="busbooking", path="/api/book")
+@FeignClient(name="bookingservice", path="/api/book")
 public interface BookingClient {
     @PostMapping("/bookBus")
     public UserBookBusResponseDTO bookBus(@RequestBody UserBookBusRequestDTO request);
