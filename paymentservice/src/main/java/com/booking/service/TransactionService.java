@@ -33,7 +33,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public TransactionResponseDTO processBooking(UserBookBusRequestDTO requestDTO) {
+    public TransactionResponseDTO makeTransaction(UserBookBusRequestDTO requestDTO) {
         int bookingStatus = random.nextInt(2);
 
         TransactionEntity entity = new TransactionEntity();
@@ -64,12 +64,12 @@ public class TransactionService {
 
 
         if(bookingStatus!=1)
-        {
+//        {
             response=null;
-//            message= "Booking successful !! Transaction Id :" +entity.getTransactionid();
-//            responseToBookingClient.sendNotification(entity.getUserid(),message);
-
-        }
+//          message= "Booking successful !! Transaction Id :" +entity.getTransactionid();
+//           responseToBookingClient.sendNotification(entity.getUserid(),message);
+//
+//        }
 //        else
 //        {
 //          message= "Booking failed !! Please try again later";

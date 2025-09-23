@@ -40,10 +40,10 @@ public class TransactionController {
      * @param requestDTO
      * @return
      */
-    @PostMapping("/processBooking")
-    public TransactionResponseDTO processBooking(@RequestBody UserBookBusRequestDTO requestDTO)
+    @PostMapping("/makeTransaction")
+    public TransactionResponseDTO makeTransaction(@RequestBody UserBookBusRequestDTO requestDTO)
     {
-        return transactionService.processBooking(requestDTO);
+        return transactionService.makeTransaction(requestDTO);
     }
 
 }
