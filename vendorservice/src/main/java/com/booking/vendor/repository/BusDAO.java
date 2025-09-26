@@ -11,5 +11,6 @@ import java.util.List;
 @Repository
 public interface BusDAO extends JpaRepository<Bus, Integer> {
     List<Bus> findByBusidIn(List<Integer> ids);
+    List<Bus> findByVendorid(Integer id);
 
 }

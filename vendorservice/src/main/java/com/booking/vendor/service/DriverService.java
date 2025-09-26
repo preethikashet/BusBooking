@@ -48,4 +48,8 @@ public class DriverService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public List<Driver> getDriverByVendor(Integer vendorid) {
+        return driverDAO.findByVendorid(vendorid);
+    }
 }

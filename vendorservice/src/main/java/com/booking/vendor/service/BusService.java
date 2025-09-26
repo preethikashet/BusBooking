@@ -10,6 +10,7 @@ import org.example.dto.BusRequestDTO;
 
 import org.example.dto.BusResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,10 @@ public class BusService {
                     return dto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public List<Bus> getBusByVendor(Integer vendorId){
+        return busDAO.findByVendorid(vendorId);
     }
 
     public Boolean getBusById(Integer busid)

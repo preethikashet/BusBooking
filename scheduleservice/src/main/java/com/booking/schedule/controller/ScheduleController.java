@@ -32,7 +32,7 @@ public class ScheduleController {
      * @return
      */
     @PostMapping("/addschedule")
-    public String addS(@Valid @RequestBody Schedule schedule){
+    public String addS(@RequestBody Schedule schedule){
 
         return scheduleService.addSchedule(schedule);
     }

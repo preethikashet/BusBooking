@@ -56,7 +56,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/user/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // ✅ Admin-only route
                         .requestMatchers("/api/kpis/all").hasAnyRole("ADMIN","USER")
                         .requestMatchers("/api/vendor/**").authenticated()
