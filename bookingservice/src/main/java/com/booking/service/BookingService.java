@@ -68,6 +68,38 @@ public class BookingService {
 
         return response;
     }
+//    public UserBookBusResponseDTO bookbus(UserBookBusRequestDTO requestDTO) {
+//        TransactionResponseDTO transres = trans.makeTransaction(requestDTO);
+//
+//        if (transres == null) {
+//            // Payment failed, don't proceed with booking or seat update
+//            throw new RuntimeException("Payment failed. Booking not created.");
+//            // OR return a custom error response DTO instead of throwing:
+//            // return null; // and handle null in controller
+//        }
+//
+//        BookingEntity booking = new BookingEntity();
+//        booking.setBookid(new Random().nextInt(100));
+//        booking.setUserid(transres.getUserid());
+//        booking.setTransactionid(transres.getTransactionid());
+//        booking.setScheduleid(transres.getScheduleid());
+//        bookingRepository.save(booking);
+//
+//        SeatStatusEntity seat = seatStatusRepository.findByBusId(transres.getBusid());
+//        seat.setOccupiedseats(seat.getOccupiedseats() + 1);
+//        seatStatusRepository.save(seat);
+//
+//        UserBookBusResponseDTO response = new UserBookBusResponseDTO();
+//        response.setUsername(transres.getUsername());
+//        response.setPrice(transres.getPrice());
+//        response.setBusnumber(transres.getBusnumber());
+//        response.setArrival(transres.getArrival());
+//        response.setDeparture(transres.getDeparture());
+//        response.setDrivernumber(transres.getDrivernumber());
+//        response.setVendorname(transres.getVendorname());
+//
+//        return response;
+//    }
 }
 
 

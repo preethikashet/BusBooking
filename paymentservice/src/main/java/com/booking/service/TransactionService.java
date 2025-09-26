@@ -1,7 +1,6 @@
 package com.booking.service;
 
 import ch.qos.logback.core.joran.spi.ElementSelector;
-import com.booking.client.ResponseToBookingClient;
 import com.booking.entity.TransactionEntity;
 import com.booking.repository.TransactionRepository;
 import org.example.dto.TransactionResponseDTO;
@@ -18,8 +17,8 @@ public class TransactionService {
     @Autowired
     public TransactionRepository transactionRepository;
 
-    @Autowired
-    public ResponseToBookingClient responseToBookingClient;
+//    @Autowired
+//    public ResponseToBookingClient responseToBookingClient;
 
     public Random random = new Random();
 
@@ -39,8 +38,8 @@ public class TransactionService {
         TransactionEntity entity = new TransactionEntity();
         entity.setTransactionid(random.nextInt(100000));
         entity.setUserid(requestDTO.getUserid());
-        entity.setPrice(requestDTO.userResponseDTO.getPrice());
-        entity.setVendorname(requestDTO.userResponseDTO.getVendorname());
+        entity.setPrice(requestDTO.getUserResponseDTO().getPrice());
+        entity.setVendorname(requestDTO.getUserResponseDTO().getVendorname());
         entity.setTimestamp(LocalDateTime.now());
         entity.setNotificationstatus(bookingStatus);
 

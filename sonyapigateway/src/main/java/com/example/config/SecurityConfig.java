@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // ✅ Admin-only route
                         .requestMatchers("/api/kpis/all").hasAnyRole("ADMIN","USER")
                         .requestMatchers("/api/vendor/**").authenticated()
+//                        .requestMatchers("/api/user/**").authenticated()
                         .anyRequest().authenticated()
                 );
 

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/user")
 
-@RequestMapping
-@RestController("/api/user")
 public class UserController {
     @Autowired
     public BookingClient bookingClient;
@@ -35,13 +35,14 @@ public class UserController {
 //    }
     /**
      *
-     * @param bookingDate
+     * @param bookingdate
      * @return
      */
     @GetMapping("/search")
-    public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src, @RequestParam String dst, @RequestParam String bookingDate)
+    public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src, @RequestParam String dst, @RequestParam String bookingdate)
     {
-        List<UserResponseDTO> buses = userService.searchBus(src, dst, bookingDate);
+        System.out.println("reached search in user");
+        List<UserResponseDTO> buses = userService.searchBus(src, dst, bookingdate);
         return ResponseEntity.ok(buses);
     }
 
