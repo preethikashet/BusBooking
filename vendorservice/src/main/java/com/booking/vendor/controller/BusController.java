@@ -7,6 +7,7 @@ import com.booking.vendor.service.BusService;
 import com.booking.vendor.service.VendorService;
 import org.example.dto.BusRequestDTO;
 import org.example.dto.BusResponseDTO;
+import org.example.dto.vendor.VendorIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,17 @@ public class BusController {
     public Boolean getBusById(@PathVariable Integer id)
     {
         return busService.getBusById(id);
+    }
+
+    /**
+     *
+     * @param vendorIdDTO
+     * @return
+     */
+    @PostMapping("/getbusesbyid")
+    public ResponseEntity<List<Bus>> getBusByVendorId(@RequestBody VendorIdDTO vendorIdDTO) {
+        List<Bus> buses = busService.getBusByVendor(vendorIdDTO.getVendorid());
+        return ResponseEntity.ok(buses);
     }
 
     @PostMapping("/getbuses")

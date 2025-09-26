@@ -33,5 +33,7 @@ public class RouteService {
     }
 
 
-
+    public List<Route> getRouteByVendor(Integer vendorid) {
+        return routeDAO.findByVendorid(vendorid);
+    }
 }
