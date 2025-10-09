@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo "🏗️ Compiling all services..."
                 script {
-                    def services = ["EurekaServer", "UserService", "SonyApiGateway", "BookingService", "ScheduleService", "PaymentService", "VendorService"]
+                    def services = ["common-dtos","EurekaServer", "UserService", "SonyApiGateway", "BookingService", "ScheduleService", "PaymentService", "VendorService"]
                     services.each { svc ->
                         dir("${svc}") {
                             echo "🔹 Building ${svc}..."
