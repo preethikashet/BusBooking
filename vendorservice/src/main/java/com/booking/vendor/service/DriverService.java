@@ -1,17 +1,13 @@
 package com.booking.vendor.service;
 
 
-import com.booking.vendor.entity.Bus;
 import com.booking.vendor.entity.Driver;
-import com.booking.vendor.repository.BusDAO;
 import com.booking.vendor.repository.DriverDAO;
-import org.example.dto.DriverRequestDTO;
 import org.example.dto.DriverResponseDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.dnd.DropTarget;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +16,9 @@ public class DriverService {
     @Autowired
     public DriverDAO driverDAO;
 
-    public String addDriver(Driver driver){
-        driverDAO.save(driver);
-        return "done";
+    public Driver addDriver(Driver driver){
+
+        return  driverDAO.save(driver);
     }
 
     public List<Driver> getDriver(){

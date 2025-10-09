@@ -29,9 +29,9 @@ public class RouteController {
      */
     @PostMapping("/add")
     public ResponseEntity<Route> addRoute(@RequestBody Route route){
-        routeService.addRoute(route);
 
-        return ResponseEntity.ok(route);
+
+        return ResponseEntity.ok(routeService.addRoute(route));
 
     }
 

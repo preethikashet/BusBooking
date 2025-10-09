@@ -43,8 +43,7 @@ public class ScheduleController {
         sch.setDeparturetime(schedule.departuretime);
         sch.setDriverid(schedule.driverid);
         sch.setPrice(schedule.price);
-        scheduleService.addSchedule(sch);
-        return ResponseEntity.ok(sch);
+        return ResponseEntity.ok(scheduleService.addSchedule(sch));
     }
 
     @GetMapping("/getSchedule")

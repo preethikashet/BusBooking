@@ -41,8 +41,8 @@ public class BusController {
         bus.setTotalseats(busDTO.getTotalseats());
         bus.setVendorid(busDTO.getVendorid());
         System.out.println(bus.getBusid());
-         busService.addBus(bus);
-         return ResponseEntity.ok(bus);
+
+         return ResponseEntity.ok(busService.addBus(bus));
     }
 
     /**

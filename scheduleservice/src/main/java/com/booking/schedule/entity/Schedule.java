@@ -22,7 +22,7 @@ public class Schedule {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer scheduleid=0;
+    public Integer scheduleid;
     @Column
     @NotNull(message = "busid should not be null")
     public Integer busid;

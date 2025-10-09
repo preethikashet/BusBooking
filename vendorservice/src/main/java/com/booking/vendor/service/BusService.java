@@ -10,12 +10,10 @@ import org.example.dto.BusRequestDTO;
 
 import org.example.dto.BusResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,10 +24,10 @@ public class BusService {
     @Autowired
     public VendorDAO vendorDAO;
 
-    public String addBus(Bus bus){
+    public Bus addBus(Bus bus){
 
-        busDAO.save(bus);
-        return "done";
+
+        return busDAO.save(bus);
     }
 
     public List<Bus> getBus(){

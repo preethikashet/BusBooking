@@ -44,39 +44,43 @@ public class ScheduleService {
     public RouteClient routeClient;
 
 
-    public String addSchedule(Schedule schedule)
+    public Schedule addSchedule(Schedule schedule)
     {
 //        if(!busClient.getBusById(schedule.getBusid()))
 //            throw new RuntimeException("Bus with given busid doesnot exists");
-
+        List<BusResponseDTO> buses = Objects.requireNonNull(
+                busClient.getbuses(new BusRequestDTO(List.of(schedule.getBusid()))).getBody(),
+                "Bus service returned null response"
+        );
+        Schedule  sch = schedulerepository.save(schedule);
         //creating seat status
         CreateSeatStatusDTO dto = new CreateSeatStatusDTO();
 
         //coping data
-        dto.setSeatstatusId(schedule.getScheduleid());
+        dto.setSeatstatusId(sch.getScheduleid());
         dto.setDate(LocalDate.from(schedule.getDeparturetime()));
         dto.setBusId(schedule.getBusid());
         //getting total seat from vendorclient
 //        dto.setTotalseats(Objects.requireNonNull(busClient.getbuses(new BusRequestDTO(List.of(101))).getBody()).get(0).getTotalseats());
 
-        List<BusResponseDTO> buses = Objects.requireNonNull(
-                busClient.getbuses(new BusRequestDTO(List.of(schedule.getBusid()))).getBody(),
-                "Bus service returned null response"
-        );
+
 
         if (buses.isEmpty()) {
             throw new RuntimeException("No buses found for ID: " + schedule.getBusid());
         }
 
-        dto.setTotalseats(buses.get(0).getTotalseats());
+        if (buses != null && !buses.isEmpty() && buses.get(0) != null) {
+            dto.setTotalseats(buses.get(0).getTotalseats());
+        }
+
 
 //        dto.setTotalseats(6);
         //calling seatClient to save
         seatClient.addseatstatus( dto);
 
         //creating schedule
-        schedulerepository.save(schedule);
-        return "Schedule added";
+        
+        return sch;
     }
 
     public List<Schedule> getSchedules()

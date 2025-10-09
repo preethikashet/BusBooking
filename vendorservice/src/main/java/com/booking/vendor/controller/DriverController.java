@@ -39,8 +39,8 @@ public class DriverController {
         driver1.setDrivername(driver.getDrivername());
         driver1.setPhoneno(driver.getPhoneno());
         driver1.setVendorid(driver.getVendorid());
-        driverService.addDriver(driver1);
-        return ResponseEntity.ok(driver1);
+
+        return ResponseEntity.ok(driverService.addDriver(driver1));
 
     }
 
