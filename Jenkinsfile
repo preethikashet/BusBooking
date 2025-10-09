@@ -40,7 +40,7 @@ pipeline {
         stage('Run Client Services') {
             steps {
                 script {
-                    def clientServices = [ "userservice", "sonyapigateway", "bookingservice", "scheduleservice","paymentservice","vendorservice""]
+                    def clientServices = [ "userservice", "sonyapigateway", "bookingservice", "scheduleservice","paymentservice","vendorservice"]
 
                     clientServices.each { svc ->
                         dir("${svc}") {
