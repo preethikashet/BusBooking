@@ -57,7 +57,20 @@ public class ScheduleService {
         dto.setDate(LocalDate.from(schedule.getDeparturetime()));
         dto.setBusId(schedule.getBusid());
         //getting total seat from vendorclient
-        dto.setTotalseats(Objects.requireNonNull(busClient.getbuses(new BusRequestDTO(List.of(1))).getBody()).get(0).getTotalseats());
+//        dto.setTotalseats(Objects.requireNonNull(busClient.getbuses(new BusRequestDTO(List.of(101))).getBody()).get(0).getTotalseats());
+
+        List<BusResponseDTO> buses = Objects.requireNonNull(
+                busClient.getbuses(new BusRequestDTO(List.of(schedule.getBusid()))).getBody(),
+                "Bus service returned null response"
+        );
+
+        if (buses.isEmpty()) {
+            throw new RuntimeException("No buses found for ID: " + schedule.getBusid());
+        }
+
+        dto.setTotalseats(buses.get(0).getTotalseats());
+
+//        dto.setTotalseats(6);
         //calling seatClient to save
         seatClient.addseatstatus( dto);
 
@@ -112,7 +125,9 @@ public class ScheduleService {
                                  allbusids
                          ));
 
+
          List<Integer> bookingbusids = bookingResponseDTOList.stream().map(BookingResponseDTO::getBusid).toList();
+         System.out.println(bookingResponseDTOList.size());
          List<Schedule> filteredSchedules = scheduleList.stream()
                  .filter(schedule -> bookingbusids.contains(schedule.busid))  // Check if busId is present in the response DTO
                  .toList();
@@ -123,6 +138,7 @@ public class ScheduleService {
 
 
          //get all driver details
+
          List<Integer> busids = bookingResponseDTOList.stream().map(BookingResponseDTO::getBusid).toList();
          List<Integer> driverids = filteredSchedules.stream().map(Schedule::getDriverid).toList();
          BusRequestDTO busRequestDTO = new BusRequestDTO(busids);

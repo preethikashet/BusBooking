@@ -27,18 +27,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
+    /**
+     * ✅ Skip filtering for public endpoints
+     */
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        System.out.println("reached should not filter");
+        // Skip /api/auth/** and /api/user/** (public endpoints)
+        return path.startsWith("/api/auth/") || path.startsWith("/api/user/");
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
-        String path = request.getRequestURI();
-
-        // ✅ Skip authentication for public endpoints
-        if (path.startsWith("/api/auth/")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
@@ -57,7 +60,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
         } else {
-            // ❌ If no token, block request for protected endpoints
+            // ❌ No token found — block request for protected endpoints
+            System.out.println("reached authorization error");
             sendErrorResponse(response, "Missing or invalid Authorization header", HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
