@@ -1,0 +1,85 @@
+version: '3.8'
+
+networks:
+  my-network:
+    driver: bridge
+
+services:
+  EurekaServer:
+    image: eureka   # Replace with your actual image name or build context
+    build:
+      context: ./EurekaServer         # Adjust if needed
+      dockerfile: Dockerfile
+    ports:
+      - "8762"
+    environment:
+      - SPRING_APPLICATION_NAME=eureka
+    networks:
+      - my-network
+
+  vendorservice:
+    image: vendor  # Replace with your actual image or build context
+    build:
+      context: ./vendorservice
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - EurekaServer
+    networks:
+      - my-network
+
+  paymentservice:
+    image: payment  # Replace with your actual image or build context
+    build:
+      context: ./paymentservice
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - EurekaServer
+    networks:
+      - my-network
+
+  bookingservice:
+    image: booking  # Replace with your actual image or build context
+    build:
+      context: ./bookingservice
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"
+    depends_on:
+      - EurekaServer
+      - paymentservice
+    networks:
+      - my-network
+
+  scheduleservice:
+    image: schedule  # Replace with your actual image or build context
+    build:
+      context: ./scheduleservice
+      dockerfile: Dockerfile
+    ports:
+      - "8087:8087"
+    depends_on:
+      - EurekaServer
+      - vendorservice
+      - bookingservice
+    networks:
+      - my-network
+
+  userservice:
+    image: user  # Replace with your actual image or build context
+    build:
+      context: ./userservice
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - EurekaServer
+      - scheduleservice
+      - bookingservice
+    networks:
+      - my-network
+
+

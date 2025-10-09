@@ -5,9 +5,9 @@ spring:
   application:
     name: busbooking
   datasource:
-    url: jdbc:mysql://localhost:3306/busbooking
-    username: root
-    password: pass@word1
+    url: jdbc:mysql://busbooking.cidw668kk5wh.us-east-1.rds.amazonaws.com:3306/busbooking
+    username: admin
+    password: Booking123
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
