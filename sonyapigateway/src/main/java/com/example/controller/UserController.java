@@ -16,17 +16,17 @@ public class UserController {
     private UserClientService userClientService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src, @RequestParam String dst, @RequestParam String bookingDate){
-        System.out.println("reached search"+src+" "+dst+" "+bookingDate);
+    public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src, @RequestParam String dst, @RequestParam String bookingDate) {
+        System.out.println("reached search" + src + " " + dst + " " + bookingDate);
 
-       return userClientService.searchBus(src,dst,bookingDate);
+        return userClientService.searchBus(src, dst, bookingDate);
     }
 
     @PostMapping("/book")
-    public ResponseEntity<Object> bookBus(@RequestBody UserDTO userDTO)
-    {
+    public ResponseEntity<Object> bookBus(@RequestBody UserDTO userDTO) {
         return userClientService.bookBus(userDTO);
     }
+}
 
 @FeignClient(name = "userservice",contextId = "UserClientService",path = "/api/user")
 interface UserClientService{
