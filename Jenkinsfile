@@ -19,7 +19,7 @@ pipeline {
                     services.each { svc ->
                         dir("${svc}") {
                             echo "Building ${svc}..."
-                            sh "mvn clean install -DskipTests"
+                            bat "mvn clean install -DskipTests"
                         }
                     }
                 }
@@ -30,10 +30,10 @@ pipeline {
             steps {
                 dir('EurekaServer') {
                     echo "Starting Eureka Server..."
-                    sh "nohup mvn spring-boot:run > ../eureka-server.log 2>&1 &"
+                    bat "nohup mvn spring-boot:run > ../eureka-server.log 2>&1 &"
                 }
                 echo "⏳ Waiting for Eureka Server to start..."
-                sh "sleep 30"
+                bat "sleep 30"
             }
         }
 
@@ -45,10 +45,10 @@ pipeline {
                     clientServices.each { svc ->
                         dir("${svc}") {
                             echo "Starting ${svc}..."
-                            sh "nohup mvn spring-boot:run > ../${svc}.log 2>&1 &"
+                            bat "nohup mvn spring-boot:run > ../${svc}.log 2>&1 &"
                         }
 
-                        sh "sleep 10"
+                        bat "sleep 10"
                     }
                 }
             }
