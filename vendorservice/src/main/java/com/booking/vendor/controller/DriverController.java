@@ -1,13 +1,11 @@
 package com.booking.vendor.controller;
 
 
-import com.booking.vendor.entity.Bus;
 import com.booking.vendor.entity.Driver;
-import com.booking.vendor.entity.Route;
 import com.booking.vendor.service.DriverService;
-import com.booking.vendor.service.RouteService;
 import org.example.dto.DriverRequestDTO;
 import org.example.dto.DriverResponseDTO;
+import org.example.dto.vendor.DriverDTO;
 import org.example.dto.vendor.VendorIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +30,17 @@ public class DriverController {
     }
 
     /**
-     *
      * @param driver
      * @return
      */
     @PostMapping("/add")
-    public String addDriver(@RequestBody Driver driver){
-        return driverService.addDriver(driver);
+    public ResponseEntity<Driver> addDriver(@RequestBody DriverDTO driver){
+        Driver driver1 = new Driver();
+        driver1.setDrivername(driver.getDrivername());
+        driver1.setPhoneno(driver.getPhoneno());
+        driver1.setVendorid(driver.getVendorid());
+        driverService.addDriver(driver1);
+        return ResponseEntity.ok(driver1);
 
     }
 

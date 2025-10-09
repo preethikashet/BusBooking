@@ -1,10 +1,7 @@
 package com.booking.vendor.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,7 +16,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class Bus {
     @Id
-    public Integer busid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer busid = 0;
 
     @Column
     @NotNull(message = "Bus number cannot be null")

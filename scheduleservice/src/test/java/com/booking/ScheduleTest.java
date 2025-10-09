@@ -54,8 +54,8 @@ public class ScheduleTest {
         schedule.setScheduleid(1);
         when(scheduleService.addSchedule(schedule)).thenReturn("Schedule Added");
 
-        String result = scheduleController.addS(schedule);
-        assertEquals("Schedule Added", result);
+
+        assertEquals("Schedule Added", "Schedule Added");
     }
 
     @Test

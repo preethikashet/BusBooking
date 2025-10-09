@@ -1,9 +1,7 @@
 package com.booking.vendor.controller;
 
 
-import com.booking.vendor.entity.Bus;
 import com.booking.vendor.entity.Route;
-import com.booking.vendor.service.BusService;
 import com.booking.vendor.service.RouteService;
 import org.example.dto.RouteRequestDTO;
 import org.example.dto.vendor.VendorIdDTO;
@@ -26,13 +24,14 @@ public class RouteController {
     }
 
     /**
-     *
      * @param route
      * @return
      */
     @PostMapping("/add")
-    public String addRoute(@RequestBody Route route){
-        return routeService.addRoute(route);
+    public ResponseEntity<Route> addRoute(@RequestBody Route route){
+        routeService.addRoute(route);
+
+        return ResponseEntity.ok(route);
 
     }
 

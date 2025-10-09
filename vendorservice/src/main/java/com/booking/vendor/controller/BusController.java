@@ -7,7 +7,9 @@ import com.booking.vendor.service.BusService;
 import com.booking.vendor.service.VendorService;
 import org.example.dto.BusRequestDTO;
 import org.example.dto.BusResponseDTO;
+import org.example.dto.vendor.BusDTO;
 import org.example.dto.vendor.VendorIdDTO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +31,18 @@ public class BusController {
 
     /**
      *
-     * @param bus
+     * @param busDTO
      * @return
      */
     @PostMapping("/add")
-    public String addBus(@RequestBody Bus bus){
-        return busService.addBus(bus);
-
+    public ResponseEntity<Bus> addBus(@RequestBody BusDTO busDTO){
+        Bus bus = new Bus();
+        bus.setBusnumber(busDTO.getBusnumber());
+        bus.setTotalseats(busDTO.getTotalseats());
+        bus.setVendorid(busDTO.getVendorid());
+        System.out.println(bus.getBusid());
+         busService.addBus(bus);
+         return ResponseEntity.ok(bus);
     }
 
     /**

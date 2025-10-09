@@ -27,6 +27,7 @@ public class BusService {
     public VendorDAO vendorDAO;
 
     public String addBus(Bus bus){
+
         busDAO.save(bus);
         return "done";
     }

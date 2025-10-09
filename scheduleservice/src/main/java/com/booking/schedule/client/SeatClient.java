@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name="busbooking",path="/api/seatstatus")
+@FeignClient(name="bookingservice",path="/api/seatstatus")
 public interface SeatClient {
     @PostMapping("/getseatstatusforids")
     public List<BookingResponseDTO> getRemainingSeats(@RequestBody BookingRequestDTO requestDTO);

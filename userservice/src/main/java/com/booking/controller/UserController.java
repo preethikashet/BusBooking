@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequestMapping
-@RestController("/api/user")
+@RequestMapping("/api/user")
+@RestController
 public class UserController {
     @Autowired
     public BookingClient bookingClient;
@@ -42,6 +42,7 @@ public class UserController {
     public ResponseEntity<List<UserResponseDTO>> searchBus(@RequestParam String src, @RequestParam String dst, @RequestParam String bookingDate)
     {
         List<UserResponseDTO> buses = userService.searchBus(src, dst, bookingDate);
+        System.out.println("reached");
         return ResponseEntity.ok(buses);
     }
 

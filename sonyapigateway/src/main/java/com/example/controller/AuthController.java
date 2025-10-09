@@ -26,7 +26,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class AuthController {
 
     @Autowired
@@ -128,13 +128,13 @@ interface VendorClient{
     public String addVendor(@RequestBody VendorDTO vendor) ;
 
     @PostMapping("/bus/add")
-    public String addBus(@RequestBody BusDTO bus);
+    public ResponseEntity<BusDTO> addBus(@RequestBody BusDTO bus);
 
     @PostMapping("/route/add")
-    public String addRoute(@RequestBody RouteDTO route);
+    public ResponseEntity<RouteDTO> addRoute(@RequestBody RouteDTO route);
 
         @PostMapping("/driver/add")
-    public String addDriver(@RequestBody DriverDTO driver);
+    public ResponseEntity<DriverDTO> addDriver(@RequestBody DriverDTO driver);
 
     @PostMapping("/bus/getbusesbyid")
     public ResponseEntity<List<BusDTO>> getBusByVendorId(@RequestBody VendorIdDTO vendorIdDTO) ;

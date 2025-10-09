@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/vendor")
-@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 
 public class VendorController {
 
@@ -20,17 +20,17 @@ public class VendorController {
     VendorClient vendorClient;
 
     @PostMapping("/bus/add")
-    public String addBus(@RequestBody BusDTO bus){
+    public ResponseEntity<BusDTO> addBus(@RequestBody BusDTO bus){
         return vendorClient.addBus(bus);
     }
 
     @PostMapping("/route/add")
-    public String addRoute(@RequestBody RouteDTO route){
+    public ResponseEntity<RouteDTO> addRoute(@RequestBody RouteDTO route){
         return vendorClient.addRoute(route);
     }
 
     @PostMapping("/driver/add")
-    public String addDriver(@RequestBody DriverDTO driver){
+    public ResponseEntity<DriverDTO> addDriver(@RequestBody DriverDTO driver){
         return vendorClient.addDriver(driver);
     }
 

@@ -1,10 +1,7 @@
 package com.booking.schedule.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -24,7 +21,8 @@ import java.time.LocalDateTime;
 public class Schedule {
     
     @Id
-    public Integer scheduleid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer scheduleid=0;
     @Column
     @NotNull(message = "busid should not be null")
     public Integer busid;
@@ -46,5 +44,8 @@ public class Schedule {
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss")
     @FutureOrPresent(message = "Departure time must be in the future or present")
     public LocalDateTime departuretime;
+
+//    @NotNull
+//    public Integer vendorid;
 
 }

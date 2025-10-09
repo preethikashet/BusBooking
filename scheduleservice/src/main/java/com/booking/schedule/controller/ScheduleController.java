@@ -6,11 +6,13 @@ import feign.Param;
 import jakarta.validation.Valid;
 import org.example.dto.RouteRequestDTO;
 import org.example.dto.UserResponseDTO;
+import org.example.dto.schedule.ScheduleDTO;
 import org.hibernate.annotations.GenericGenerator;
 
 import org.example.dto.BookingResponseDTO;
 import org.example.dto.BusResponseDTO;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +34,17 @@ public class ScheduleController {
      * @return
      */
     @PostMapping("/addschedule")
-    public String addS(@RequestBody Schedule schedule){
-
-        return scheduleService.addSchedule(schedule);
+    public ResponseEntity<Schedule> addS(@RequestBody ScheduleDTO schedule){
+        Schedule sch = new Schedule();
+        System.out.println(sch.scheduleid);
+        sch.setBusid(schedule.busid);
+        sch.setRouteid(schedule.routeid);
+        sch.setArrivaltime(schedule.arrivaltime);
+        sch.setDeparturetime(schedule.departuretime);
+        sch.setDriverid(schedule.driverid);
+        sch.setPrice(schedule.price);
+        scheduleService.addSchedule(sch);
+        return ResponseEntity.ok(sch);
     }
 
     @GetMapping("/getSchedule")
