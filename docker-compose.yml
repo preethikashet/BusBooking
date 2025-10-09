@@ -11,7 +11,7 @@ services:
       context: ./EurekaServer         # Adjust if needed
       dockerfile: Dockerfile
     ports:
-      - "8762"
+      - "8762:8762"
     environment:
       - SPRING_APPLICATION_NAME=eureka
     networks:
@@ -42,7 +42,7 @@ services:
       - my-network
 
   bookingservice:
-    image: booking  # Replace with your actual image or build context
+    image: booking:latest  # Replace with your actual image or build context
     build:
       context: ./bookingservice
       dockerfile: Dockerfile
@@ -69,7 +69,7 @@ services:
       - my-network
 
   userservice:
-    image: user  # Replace with your actual image or build context
+    image: user:latest  # Replace with your actual image or build context
     build:
       context: ./userservice
       dockerfile: Dockerfile
@@ -82,4 +82,17 @@ services:
     networks:
       - my-network
 
+  sonyapigateway:
+    image: sonyapi:latest  # Replace with your actual image or build context
+    build:
+      context: ./sonyapigateway
+      dockerfile: Dockerfile
+    ports:
+      - "6001:6001"
+    depends_on:
+      - EurekaServer
+      - vendorservice
+      - userservice
+    networks:
+      - my-network
 
