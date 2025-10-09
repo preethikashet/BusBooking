@@ -1,24 +1,31 @@
 pipeline {
     agent any
+
     environment {
-                JAVA_HOME = "C:\\Program Files\\Java\\jdk-17"
-                PATH = "${JAVA_HOME}\\bin;${PATH}"
+        MAVEN_HOME = 'C:\\apache-maven-3.9.11'  // Update if Maven is in a different path
+        JAVA_HOME = "C:\\Program Files\\Java\\jdk-17" // Update to your JDK path
+        PATH = "${env.MAVEN_HOME}\\bin;${env.JAVA_HOME}\\bin;${env.PATH}"
     }
 
     stages {
-        stage('Checkout Code') {
+
+        stage('Checkout') {
             steps {
-                git branch: 'newjen', url: 'https://github.com/preethikashet/BusBooking.git'
+                echo "🔁 Checking out source code..."
+                checkout scm
+                echo "📂 Listing checked-out folders:"
+                bat "dir /b"
             }
         }
 
-        stage('Build All Services') {
+        stage('Compile & Build') {
             steps {
+                echo "🏗️ Compiling all services..."
                 script {
-                    def services = ["eureka", "userservice", "sonyapigateway", "bookingservice", "scheduleservice","paymentservice","vendorservice"]
+                    def services = ["EurekaServer", "UserService", "SonyApiGateway", "BookingService", "ScheduleService", "PaymentService", "VendorService"]
                     services.each { svc ->
                         dir("${svc}") {
-                            echo "Building ${svc}..."
+                            echo "🔹 Building ${svc}..."
                             bat "mvn clean install -DskipTests"
                         }
                     }
@@ -29,26 +36,25 @@ pipeline {
         stage('Run Eureka Server') {
             steps {
                 dir('EurekaServer') {
-                    echo "Starting Eureka Server..."
-                    bat "nohup mvn spring-boot:run > ../eureka-server.log 2>&1 &"
+                    echo "🚀 Starting Eureka Server..."
+                    // start in background using Windows 'start /B'
+                    bat "start /B mvn spring-boot:run > ..\\eureka-server.log 2>&1"
                 }
                 echo "⏳ Waiting for Eureka Server to start..."
-                bat "sleep 30"
+                bat "timeout /t 30"
             }
         }
 
         stage('Run Client Services') {
             steps {
                 script {
-                    def clientServices = [ "userservice", "sonyapigateway", "bookingservice", "scheduleservice","paymentservice","vendorservice"]
-
+                    def clientServices = ["UserService", "SonyApiGateway", "BookingService", "ScheduleService", "PaymentService", "VendorService"]
                     clientServices.each { svc ->
                         dir("${svc}") {
-                            echo "Starting ${svc}..."
-                            bat "nohup mvn spring-boot:run > ../${svc}.log 2>&1 &"
+                            echo "🚀 Starting ${svc}..."
+                            bat "start /B mvn spring-boot:run > ..\\${svc}.log 2>&1"
                         }
-
-                        bat "sleep 10"
+                        bat "timeout /t 10"
                     }
                 }
             }
@@ -57,11 +63,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ All services built and started successfully!"
-            echo "📋 Logs available in Jenkins workspace"
+            echo '✅ All services built and started successfully.'
         }
         failure {
-            echo "❌ Pipeline failed — check logs for errors."
+            echo '❌ Build or service startup failed.'
         }
     }
 }
