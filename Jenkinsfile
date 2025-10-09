@@ -41,7 +41,7 @@ pipeline {
                     bat "start /B mvn spring-boot:run > ..\\eureka-server.log 2>&1"
                 }
                 echo "⏳ Waiting for Eureka Server to start..."
-                bat "timeout /t 30"
+                bat  "ping 127.0.0.1 -n 31 > nul"
             }
         }
 
