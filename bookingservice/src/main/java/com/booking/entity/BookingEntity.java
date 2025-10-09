@@ -1,9 +1,6 @@
 package com.booking.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NonNull;
@@ -15,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 @Table(name="bookingtable")
 public class BookingEntity {
     @Id
-    @NotNull(message="Book ID cannot be Null")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookid;
     @Column
 

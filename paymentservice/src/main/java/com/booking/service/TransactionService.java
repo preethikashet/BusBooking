@@ -33,7 +33,7 @@ public class TransactionService {
     }
 
     public TransactionResponseDTO makeTransaction(UserBookBusRequestDTO requestDTO) {
-        int bookingStatus = random.nextInt(2);
+        int bookingStatus = 1;
 
         TransactionEntity entity = new TransactionEntity();
         entity.setTransactionid(random.nextInt(100000));

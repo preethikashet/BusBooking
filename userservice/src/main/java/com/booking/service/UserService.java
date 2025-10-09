@@ -22,10 +22,9 @@ public class UserService {
         return scheduleClient.searchBus(src, dst, bookingDate);
     }
 
-    public String addUser(UserEntity userEntity)
+    public UserEntity addUser(UserEntity userEntity)
     {
-        userRepository.save(userEntity);
-        return "User added";
+        return userRepository.save(userEntity);
     }
 
     public List<UserEntity> getUsers()

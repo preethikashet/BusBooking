@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface SeatStatusRepository extends JpaRepository<SeatStatusEntity,Int
     List<SeatStatusEntity> findByBusIdInAndDate(List<Integer> busId,  LocalDate date);
     SeatStatusEntity findByBusId (Integer busId);
 
+    SeatStatusEntity findByBusIdAndDate(Integer busid, LocalDate arrival);
 }

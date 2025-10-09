@@ -12,6 +12,9 @@ import org.example.dto.UserBookBusResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
@@ -45,13 +48,13 @@ public class BookingService {
         }
 
         BookingEntity booking = new BookingEntity();
-        booking.setBookid(new Random().nextInt(100));
         booking.setUserid(transres.getUserid());
         booking.setTransactionid(transres.getTransactionid());
         booking.setScheduleid(transres.getScheduleid());
         bookingRepository.save(booking);
+         // e.g. "31-12-2023T15:30:00"
 
-        SeatStatusEntity seat = seatStatusRepository.findByBusId(transres.getBusid());
+        SeatStatusEntity seat = seatStatusRepository.findByBusIdAndDate(transres.getBusid(), transres.getDeparture().toLocalDate());
         seat.setOccupiedseats(seat.getOccupiedseats() + 1);
         seatStatusRepository.save(seat);
 

@@ -52,9 +52,9 @@ public class UserController {
      * @return
      */
     @PostMapping("/adduser")
-    public String addUser(@RequestBody UserEntity userEntity)
+    public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity userEntity)
     {
-        return userService.addUser(userEntity);
+        return ResponseEntity.ok(userService.addUser(userEntity));
     }
 
     /**

@@ -1,20 +1,15 @@
-package com.booking.entity;
+package org.example.dto.user;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "usertable")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserEntityDTO {
     private Integer userid;
-    @Column
     private String uname;
     private String gender;
     private String email;

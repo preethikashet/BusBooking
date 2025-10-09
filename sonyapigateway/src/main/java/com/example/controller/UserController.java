@@ -2,6 +2,7 @@ package com.example.controller;
 
 import org.example.dto.UserDTO;
 import org.example.dto.UserResponseDTO;
+import org.example.dto.user.UserEntityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,12 @@ public class UserController {
     public ResponseEntity<Object> bookBus(@RequestBody UserDTO userDTO) {
         return userClientService.bookBus(userDTO);
     }
+
+    @PostMapping("/adduser")
+    public ResponseEntity<UserEntityDTO> addUser(@RequestBody UserEntityDTO userEntity)
+    {
+        return userClientService.addUser(userEntity);
+    }
 }
 
 @FeignClient(name = "userservice",contextId = "UserClientService",path = "/api/user")
@@ -35,4 +42,8 @@ interface UserClientService{
 
     @PostMapping("/book")
     public ResponseEntity<Object> bookBus(@RequestBody UserDTO userDTO);
+
+    @PostMapping("/adduser")
+    public ResponseEntity<UserEntityDTO> addUser(@RequestBody UserEntityDTO userEntity);
+
 }
