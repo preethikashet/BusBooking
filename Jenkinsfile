@@ -54,7 +54,7 @@ pipeline {
                             echo "🚀 Starting ${svc}..."
                             bat "start /B mvn spring-boot:run > ..\\${svc}.log 2>&1"
                         }
-                        bat "timeout /t 10"
+                        bat "ping 127.0.0.1 -n 11 > nul
                     }
                 }
             }
